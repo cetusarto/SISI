@@ -24,7 +24,7 @@
             <% for(var i = 0; i < columns.length; i++) { %>
                 <% col=columns[i];clase="";%> 
             <th scope="col"><%= col[0].toUpperCase() + col.slice(1); %>
-                <% if(sel[0]== col && sel[1]== "ASC"){clase="btn-primary"}%> 
+                <% if(sel[0]== col && sel[1]== "ASC"){clase="btn-info"}%> 
                 <% if (!con) { %>
                     <%rut=tabla; if(his){rut="caja/historial"}%> 
                     <a href="/<%=rut%>/sort/<%= columns[i]%>/ASC"                   
@@ -33,7 +33,7 @@
                     </a>
                 <% } %>
 
-                <% if(sel[0]== col && sel[1]== "DESC"){clase="btn-primary"}else{clase=""}%> 
+                <% if(sel[0]== col && sel[1]== "DESC"){clase="btn-info"}else{clase=""}%> 
                 <% if (!con) { %>
                     <%rut=tabla; if(his){rut="caja/historial"}%> 
                 <a href="/<%=rut%>/sort/<%=columns[i]%>/DESC" 
