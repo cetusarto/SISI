@@ -1,0 +1,58 @@
+<%- include ('partials/_header') %>
+    <% if(!data) {%><title> Añadir  Contacto </title>
+    <% } else{%><title> Ver/Editar  Contacto </title><% } %>   
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="col  m-5 center-block">
+                <% if(!data) {%><h1 class="display-1"> Añadir  Contacto de <%= con[1] %></h1> <form action="/contacto/add" method="POST">
+                <% } else{%><h1 class="display-1"> Ver/Editar  Contacto de <%= con[1] %></h1> <form action="/contacto/update/<%= data.iDContacto%>" method="POST"><% } %> 
+                    
+                    <div class="col-4 mt-4">
+                        <div class="form-group">
+                            <% val=null;if(data) {val=data.tipoContacto}%>
+                            <% tel = "checked"; cor="" ; dir=""%>
+                            <% if(val=="Correo"){cor = "checked"; tel=""}%>
+                            <% if(val=="Direccion"){dir = "checked"; tel=""}%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" 
+                                    name="tipoContacto" id="tipoContacto" value="Telefono" <%= tel%> >
+                                    <label class="form-check-label" >Teléfono</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" 
+                                    name="tipoContacto" id="tipoContacto" value="Correo" <%= cor%>>
+                                    <label class="form-check-label" >Correo</label>
+                                </div>    
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" 
+                                    name="tipoContacto" id="tipoContacto" value="Direccion" <%= dir%>>
+                                    <label class="form-check-label" >Dirección</label>
+                                </div>
+                                <% if(data){val=data.iDProveedor}else{val=con[0]}%>
+                                <input type="hidden" value= "<%=val%>" name="iDProveedor" id="iDProveedor">
+
+                        </div>
+                    </div>
+
+                    <div class="col-7 mt-3  ">
+                        <div class="form-group">
+                            <% val="";if(data) {val=data.contacto}%>
+                                    <label for="contacto" class="mb-1">Contacto</label>
+                                    <input type="text" name="contacto" placeholder="Contacto"
+                                        class="form-control"  required maxlength="40"
+                                        value="<%= val%>">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-5">
+                        Guardar  Contacto
+                    </button>
+                </form>
+            </div>
+        </div>
+        </div>
+        <%- include ('partials/_footer') %>

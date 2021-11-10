@@ -1,0 +1,20 @@
+.img-responsive {
+    max-width: 200px; /* or to whatever you want here */
+    max-height: 200px; /* or to whatever you want here */
+  }
+
+  .img-responsive1 {
+    max-width: 100px; /* or to whatever you want here */
+    max-height: 100px; /* or to whatever you want here */
+  }
+
+
+
+.navbar
+{
+  font-size: 20px;
+}
+.navbar-brand
+{
+  font-size: 30px;
+}

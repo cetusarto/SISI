@@ -1,0 +1,48 @@
+<%- include ('partials/_header') %>
+    <title> Filtro por <%=tabla[0].toUpperCase() + tabla.slice(1);%> </title>     
+    </head>
+
+    <body>
+
+    <%- include ('partials/_navbar') %>       
+    <% val=tabla;%>
+    <h4 class="display-2 mt-4" > Resumen de <%=val%></h4>   
+    
+    <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <% if (columns) { %>
+            <% for(var i = 0; i < columns.length; i++) { %>
+                <% col=columns[i];clase="";%> 
+            <th scope="col">
+                <%= col[0].toUpperCase() + col.slice(1); %>
+            </th>
+            <% }} %>
+          </tr>
+
+        </thead>
+        <tbody>
+            <% if (data) { %>                
+            <% for(var i = 0; i < data.length; i++) { %>
+                <tr>
+                <% for(var j = 0; j < columns.length-1; j++) { %>
+                    <% if(j==0) { %>
+                        <th scope="row"><%= data[i][columns[j]] %></th>
+                    <% }else { %>
+                        <td><%= data[i][columns[j]] %></td>
+                <% }} %>
+                <td>
+
+                    <a href="<%= '/'+tabla+'/cajas/'+data[i][columns[0]]%>" class="btn btn-info">Inventario</a>
+                </td>
+                </tr>
+            <% }} %>
+        </tbody>
+      </table>
+      
+      
+
+    
+
+
+<%- include ('partials/_footer') %>

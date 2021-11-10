@@ -1,0 +1,50 @@
+<%- include ('partials/_header') %>
+    <title> Filtro por <%=tabla[0].toUpperCase() + tabla.slice(1);%> </title>     
+    </head>
+
+    <body>
+
+    <%- include ('partials/_navbar') %>       
+    <% val="de "+filtro; if(tabla=="proveedor"){val="proveído por "+filtro}%>
+    <h4 class="display-2 mt-4" > Inventario <%=val%></h4>   
+    
+    <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <% if (columns) { %>
+            <% for(var i = 0; i < columns.length; i++) { %>
+                <% col=columns[i];clase="";%> 
+            <th scope="col">
+                <%= col[0].toUpperCase() + col.slice(1); %>
+            </th>
+            <% }} %>
+            <th scope="col">Opciones</th>
+          </tr>
+
+        </thead>
+        <tbody>
+            <% if (data) { %>                
+            <% for(var i = 0; i < data.length; i++) { %>
+                <tr>
+                <% for(var j = 0; j < columns.length; j++) { %>
+                    <% if(j==0) { %>
+                        <th scope="row"><%= data[i][columns[j]] %></th>
+                    <% }else { %>
+                        <td><%= data[i][columns[j]] %></td>
+                <% }} %>
+                <td>
+
+                    <a href="/caja/update/<%= data[i].iDCaja +'/'+tabla%>" class="btn btn-secondary">Ver/Editar</a>
+                    <a href="/caja/delete/<%= data[i].iDCaja +'/'+tabla%>" class="btn btn-danger">Eliminar</a>
+                </td>
+                </tr>
+            <% }} %>
+        </tbody>
+      </table>
+      
+      
+
+    
+
+
+<%- include ('partials/_footer') %>

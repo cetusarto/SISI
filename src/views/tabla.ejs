@@ -1,0 +1,82 @@
+<%- include ('partials/_header') %>
+    <title> Listado de <%=tabla[0].toUpperCase() + tabla.slice(1);%> </title>     
+    </head>
+
+    <body>
+
+    <%- include ('partials/_navbar') %>       
+    
+    <% val="Listado de "+tabla; route=""; if(con){val="Listado de Contactos de "+con[1]; route="/"+con[0]} %>
+    <h1 class="display-2 mt-4" > <%=val%> </h1>   
+    
+    <% if(!his){ %>
+    <div class="col text-center">
+        <a href="/<%=tabla%>/add<%=route%>" 
+        class="btn btn-primary btn-lg" 
+        role="button">Añadir <%=tabla%></a>
+    </div>
+    <% } %>
+      
+    <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <% if (columns) { %>
+            <% for(var i = 0; i < columns.length; i++) { %>
+                <% col=columns[i];clase="";%> 
+            <th scope="col"><%= col[0].toUpperCase() + col.slice(1); %>
+                <% if(sel[0]== col && sel[1]== "ASC"){clase="btn-primary"}%> 
+                <% if (!con) { %>
+                    <%rut=tabla; if(his){rut="caja/historial"}%> 
+                    <a href="/<%=rut%>/sort/<%= columns[i]%>/ASC"                   
+                        class="btn btn-secondary <%=clase%>  btn-sm">
+                        <img src="/public/assets/up.svg"  width="20" height="20">
+                    </a>
+                <% } %>
+
+                <% if(sel[0]== col && sel[1]== "DESC"){clase="btn-primary"}else{clase=""}%> 
+                <% if (!con) { %>
+                    <%rut=tabla; if(his){rut="caja/historial"}%> 
+                <a href="/<%=rut%>/sort/<%=columns[i]%>/DESC" 
+                    class="btn btn-secondary <%=clase%> btn-sm">
+                    <img src="/public/assets/down.svg"  width="20" height="20">
+                </a>
+                <% } %>
+
+            </th>
+            <% }} %>
+            <th scope="col">Opciones</th>
+          </tr>
+
+        </thead>
+        <tbody>
+            <% if (data) { %>
+                
+            <% for(var i = 0; i < data.length; i++) { %>
+                <tr>
+                <% for(var j = 0; j < columns.length; j++) { %>
+                    <% if(j==0) { %>
+                        <th scope="row"><%= data[i][columns[j]] %></th>
+                    <% }else { %>
+                        <td><%= data[i][columns[j]] %></td>
+                <% }} %>
+                <td>
+                <% val= columns[0];tab=tabla;extra=""; if(con){val= "iDContacto"} if(his){tab="caja";extra="/his"}%>
+                    <% if(tabla.length>15){extra=""} %>
+                    <a href="/<%=tab%>/update/<%= data[i][val]+extra %>" class="btn btn-secondary">Ver/Editar</a>
+                    <a href="/<%=tab%>/delete/<%= data[i][val]+extra %>" class="btn btn-danger">Eliminar</a>
+                    <% if(caja){ %>
+                        <a href="/<%=tab%>/cajas/<%= data[i][val] %>" class="btn btn-info">Inventario</a>
+
+                    <% } %>
+                </td>
+                </tr>
+            <% }} %>
+        </tbody>
+      </table>
+      
+      
+
+    
+
+
+<%- include ('partials/_footer') %>

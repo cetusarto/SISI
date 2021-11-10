@@ -1,0 +1,37 @@
+<%- include ('partials/_header') %>
+    <% if(!data) {%><title> Añadir Categoría </title>
+    <% } else{%><title> Ver/Editar Categoría </title><% } %>   
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="col  m-5 center-block">
+                <% if(!data) {%><h1 class="display-1"> Añadir Categoría </h1> <form action="/categoria/add" method="POST">
+                <% } else{%><h1 class="display-1"> Ver/Editar Categoría</h1> <form action="/categoria/update/<%= data.iDCategoria%>" method="POST"><% } %> 
+                    <div class="col-4 mt-3  ">
+                        <div class="form-group">
+                            <% val="";if(data) {val=data.nombreCategoria}%>
+                                    <label for="nombreCategoria" class="mb-1">Nombre Categoría</label>
+                                    <input type="text" name="nombreCategoria" placeholder="Nombre Categoría"
+                                        class="form-control"  required maxlength="30"
+                                        value="<%= val%>">
+                        </div>
+                    </div>
+                    <div class="col-5 mt-3 align-self-center">
+                        <div class="form-group">
+                            <% val="";if(data) {val=data.descripcionCategoria}%>
+                                    <label for="descripcionCategoria" class="mb-1">Descripción Categoría</label>
+                                    <textarea class="form-control" name="descripcionCategoria"
+                                        placeholder="Descripción de Categoría" rows="3" 
+                                        required><%= val%></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary mt-5">
+                        Guardar Categoría
+                    </button>
+                </form>
+            </div>
+        </div>
+        </div>
+        <%- include ('partials/_footer') %>

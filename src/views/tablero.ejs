@@ -1,0 +1,75 @@
+<%- include ('partials/_header') %>
+  <link rel="stylesheet" href="/public/styles/index.css">
+  <title> Tablero de información </title>
+
+  </head>
+
+  <body>
+
+    <%- include ('partials/_navbar') %>
+
+
+
+      <h1 class="display-4 mt-4 text-center"> Tablero de estados </h1>
+
+
+
+      <div class="card mx-auto" style="width: 50%;">
+        <div class="card-body">
+
+          <div class="row pt-3">
+            <div class="card mx-auto" style="width: 60%;">
+              <div class="card-body">
+                <div class="row">
+                  <h5 class="card-title text-center">Valor de inventario</h5>
+                  <div class="col text-center">
+                    <p class="text-primary">$<%= vInv%> en mercancía guardada</p>
+                  </div>
+                  <div class="col text-center">
+                    <p class="text-danger">$<%= vHis%> en mercancía perdida por vencimiento</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="row pt-3">
+            <div class="card mx-auto" style="width: 60%;">
+              <div class="card-body">
+                <div class="row">
+                  <h5 class="card-title text-center">Resumen por característica</h5>
+                  <div class="col pt-3 text-center">
+                    <a href="/tablero/resumen/categoria" class="btn btn-primary  btn-lg" role="button">Categorías</a>
+                    <a href="/tablero/resumen/producto" class="btn btn-secondary btn-lg" role="button">Producto</a>
+                    <a href="/tablero/resumen/proveedor" class="btn btn-primary btn-lg" role="button">Proveedor</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row pt-3">
+            <div class="card mx-auto" style="width: 90%;">
+              <div class="card-body mx-auto">
+                <div class="container">
+                  <div class="row center">
+                    <p class="text-danger text-center  col"> <%= alto%> cajas en riesgo alto </p>
+                    <p class="text-warning text-center  col"><%= medio%> cajas en riesgo medio</p>
+                    <p class="text-success text-center  col"> <%= bajo%> cajas en riesgo bajo</p>
+                  </div>
+                  <div class="row center">
+                    <a href="/tablero/alto" class="btn btn-danger col m-1 btn-lg" role="button">Ver cajas</a>
+                    <a href="/tablero/medio" class="btn btn-warning m-1 col btn-lg" role="button">Ver cajas</a>
+                    <a href="/tablero/bajo" class="btn btn-success m-1 col btn-lg" role="button">Ver cajas</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <%- include ('partials/_footer') %>

@@ -1,0 +1,133 @@
+<%- include ('partials/_header') %>
+    <% if(!data) {%><title> Añadir Producto </title>
+    <% } else{%><title> Ver/Editar Producto </title><% } %>   
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="col  m-5 center-block">
+                <% val="";if(extra){val="/"+extra} %>
+                <% if(!data) {%><h1 class="display-1"> Añadir Caja </h1> <form action="/caja/add" method="POST">
+                <% } else{%><h1 class="display-1"> Ver/Editar Caja</h1> <form action="/caja/update/<%= data.iDCaja+val%>" method="POST"><% } %> 
+                    
+                    
+                    <div class="col-4 mt-3  ">
+                        <div class="form-group">
+                            <label for="iDProveedor">Seleccionar Proveedor</label>
+                            <select class="form-select"  id="iDProveedor" name="iDProveedor">
+                                <% hap=false; %>
+                                <% for(var i = 0; i < proveedores.length; i++) { %>
+                                    <% iDC = proveedores[i].iDProveedor ; nombre= proveedores[i].nombreProveedor%>
+                                    <% val="";if (iDC==data.iDProveedor){val="selected";hap=true;}%>
+                                    <% if (!hap && i==proveedores.length-1){val="selected";}; %>
+                                    <option value="<%= iDC %>"                                       
+                                            <%= val %>>
+                                    <%= nombre %>
+                                    </option>
+                                <% }%>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-3  ">
+                        <div class="form-group">
+                            <label for="iDProducto">Seleccionar Producto</label>
+                            <select class="form-select"  id="iDProducto" name="iDProducto">
+                                <% hap=false; %>
+                                <% for(var i = 0; i < productos.length; i++) { %>
+                                    <% iDC = productos[i].iDProducto ; nombre= productos[i].nombreProducto%>
+                                    <% val="";if (iDC==data.iDProducto){val="selected";hap=true;}%>
+                                    <% if (!hap && i==productos.length-1){val="selected";}; %>
+                                    <option value="<%= iDC %>"                                       
+                                            <%= val %>>
+                                    <%= nombre %>
+                                    </option>
+                                <% }%>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-8 mt-3 align-self-center">
+                        <div class="form-group">
+                            <% val=new Date();if(data) {val=data.fechaEntrada}%>
+                            <label for="fechaEntrada">Fecha de Entrada </label>
+                            <input type="date" required id="fechaEntrada" name="fechaEntrada"
+                                value="<%= val.toISOString().substring(0, 10);%>" >
+
+                            <% val=new Date();if(data) {val=data.fechaVencimiento}%>
+                            <label for="fechaVencimiento">Fecha de Vencimiento </label>
+                            <input type="date" required id="fechaVencimiento" name="fechaVencimiento"
+                                value="<%= val.toISOString().substring(0, 10);%>" >
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-5 mt-3 align-self-center">
+                        <div class="form-group">
+                            <% val="";if(data && data.fechaSalida != null) {val=data.fechaSalida.toISOString().substring(0, 10);}%>
+                            <label for="fechaSalida">Fecha de Salida (opcional) </label><br>
+                            <input type="date" id="fechaSalida" name="fechaSalida"
+                                value="<%= val%>" >
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-3  ">
+                        <div class="form-group">
+                            <% val="1";if(data) {val=data.valor}%>
+                                    <label for="valor" class="mb-1">Valor de caja (COP)</label>
+                                    <input type="number" min="1" name="valor"  placeholder="Valor de caja (COP)"
+                                        class="form-control"
+                                        value="<%= val%>">
+                        </div>                
+                    </div>
+
+                    <div class="col-4 mt-3  ">
+                        <div class="form-group">
+                            <% val="1";if(data) {val=data.cantidad}%>
+                                    <label for="cantidad" class="mb-1">Cantidad de producto (unidades)</label>
+                                    <input type="number" min="1" name="cantidad"  placeholder="Cantidad de producto (unidades)"
+                                        class="form-control"
+                                        value="<%= val%>">
+                        </div>                
+                    </div>
+                    
+
+                    <div class="col-5 mt-3 align-self-center">
+                        <div class="form-group">
+                            <% val="";if(data) {val=data.comentario}%>
+                                    <label for="comentario" class="mb-1">Comentario de caja</label>
+                                    <textarea class="form-control" name="comentario"
+                                        placeholder="Descripción de Producto" rows="2" 
+                                        ><%= val%></textarea>
+                        </div>
+                    </div>
+                    
+            
+                    <button type="submit" class="btn btn-primary mt-5" onclick= validate(event)>
+                        Guardar Caja
+                    </button>
+                    <script>
+                        function validate(event){
+                            var salida=document.getElementById("fechaSalida").value;
+                            var entrada = new Date(document.getElementById("fechaEntrada").value);
+                            var vencimiento = new Date(document.getElementById("fechaVencimiento").value);
+
+                            condition2 = false;
+                            if(salida!=""){salida = new Date(salida); condition2 = salida<entrada}
+                            condition1 = vencimiento < entrada;
+                          
+                            condition = condition1 || condition2;
+
+                            if((condition)){
+                                event.preventDefault()
+                                alert("Las fechas de vencimiento y salida deben ser menores o iguales que las de entrada")
+                            }
+                        }
+                    </script>
+                    
+                </form>
+            </div>
+        </div>
+        </div>
+
+        <%- include ('partials/_footer') %>
